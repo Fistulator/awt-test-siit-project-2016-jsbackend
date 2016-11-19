@@ -1,0 +1,22 @@
+{
+  "name": "awt-test-siit-project-2016-jsbackend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "advanced",
+    "web",
+    "technologies",
+    "node.js"
+  ],
+  "author": "Bojan Blagojevic, Dragutin Marjanovic, Stefan Ristanovic, Aleksa Zrnic",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.14.0",
+    "mongodb": "^2.2.11",
+    "mongoose": "^4.6.8"
+  }
+}
