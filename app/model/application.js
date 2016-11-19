@@ -42,5 +42,10 @@ var applicationSchema = new Schema
 });
 
 var Application = mongoose.model('Application', applicationSchema);
+var Event = mongoose.model('Event', eventSchema);
 
-module.exports = Application;
+module.exports = 
+{
+    Application,
+    myEvent
+};
