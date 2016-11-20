@@ -1,19 +1,9 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var eventSchema = new Schema
-({
-    versionNumber: String,
-    stack: String,
-    time:
-    {
-        type: Date,
-        default: Date.now
-    },
-    fragment: String
-});
+var eventSchema = require('mongoose').model('Event').schema;
 
-var applicationSchema = new Schema
+var ApplicationSchema = new Schema
 ({
     name:
     {
@@ -21,7 +11,7 @@ var applicationSchema = new Schema
         required: true,
         unique: true
     },
-    description: 
+    description:
     {
         type: String,
         required: true
@@ -42,11 +32,4 @@ var applicationSchema = new Schema
     events: [eventSchema]
 });
 
-var Application = mongoose.model('Application', applicationSchema);
-var myEvent = mongoose.model('Event', eventSchema);
-
-module.exports = 
-{
-    Application,
-    myEvent
-};
+var Application = mongoose.model('Application', ApplicationSchema);
