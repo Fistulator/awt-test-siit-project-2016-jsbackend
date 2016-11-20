@@ -6,6 +6,8 @@ module.exports = function() {
 
     // Include defined models in Mongoose
     require('../app/models/user.model');
+    require('../app/models/event.model');
+    require('../app/models/application.model');
 
     return db;
 }
