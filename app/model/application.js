@@ -38,11 +38,12 @@ var applicationSchema = new Schema
         type: String,
         required: true
     },
+    users: [String],
     events: [eventSchema]
 });
 
 var Application = mongoose.model('Application', applicationSchema);
-var Event = mongoose.model('Event', eventSchema);
+var myEvent = mongoose.model('Event', eventSchema);
 
 module.exports = 
 {
