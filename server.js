@@ -2,7 +2,7 @@
   Requirements:
     - config for configuration
     - express for server
-    - mongoose is ORM for database
+    - mongoose is ODM for database
 */
 var config   = require('./config/config');
 var mongoose = require('./config/mongoose');
@@ -14,6 +14,7 @@ var PORT = config.port || 8081;
 var db = mongoose();
 var app = express();
 
+app.set('secretKey', config.secretKey);
 app.listen(PORT);
 
 module.exports = app;
