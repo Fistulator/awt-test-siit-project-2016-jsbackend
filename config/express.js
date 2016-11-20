@@ -9,12 +9,11 @@ module.exports = function() {
        extended: true
    }));
    app.use(bodyParser.json());
-   
-   //app.use(express.static(__dirname + "/public"));
 
    // Include all routes so we can use defined REST paths
-   // equire('../app/routes/index.server.routes.js')(app);
    require('../app/routes/user.route.js')(app);
+   require('../app/routes/event.route.js')(app);
+   require('../app/routes/application.route.js')(app);
 
    return app;
 };

@@ -1,31 +1,35 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var UserSchema = new Schema
+var eventSchema = require('mongoose').model('Event').schema;
+
+var ApplicationSchema = new Schema
 ({
-    mail:
+    name:
     {
         type: String,
         required: true,
         unique: true
     },
-    username: String,
-    name:
+    description:
     {
         type: String,
         required: true
     },
-    surname:
+    latestVersion: String,
+    repo: String,
+    dsn:
     {
         type: String,
         required: true
     },
-    password:
+    creator:
     {
         type: String,
         required: true
     },
+    users: [String],
+    events: [eventSchema]
 });
 
-var User = mongoose.model("User", UserSchema);
-module.exports = User;
+var Application = mongoose.model('Application', ApplicationSchema);
