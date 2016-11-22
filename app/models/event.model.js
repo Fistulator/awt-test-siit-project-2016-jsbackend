@@ -10,7 +10,12 @@ var EventSchema = new Schema
         type: Date,
         default: Date.now
     },
-    fragment: String
+    fragment: String,
+    applicationId: 
+    {
+        type: String,
+        required: true   
+    }
 });
 
 var Event = mongoose.model('Event', EventSchema);
