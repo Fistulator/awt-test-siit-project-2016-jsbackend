@@ -49,7 +49,7 @@ exports.auth = function(request, response, next) {
 
           // Make token
           var token = jwt.sign({
-            mail: user.mail,
+            mail: user.email,
           }, config.secretKey);
 
           // Return Token and User in response
