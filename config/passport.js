@@ -26,7 +26,7 @@ passport.use(new LocalStrategy(
             return done(null, {
               email: user.mail,
               firstname: user.name,
-              lastname: user.lastname
+              lastname: user.surname
             });
         });
     }
