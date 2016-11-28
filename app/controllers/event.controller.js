@@ -3,32 +3,33 @@ var config = require('./../../config/config');
 var Event = require('mongoose').model('Event');
 var Application = require('mongoose').model('Application');
 var User = require('mongoose').model('User');
+var Comment = require('mongoose').model('Comment');
 var email = require('./mail.controller');
 
 
 // Function for event create
-exports.create = function (request, response, next) {
+exports.create = function(request, response, next) {
     var event = new Event(request.body);
 
     // Save event from request's body to database
-    event.save(function (err) {
+    event.save(function(err) {
         if (err) {
             return next(err);
         }
         else {
-            Application.findOne({ "_id": event.applicationId }, function (err, app) {
+            Application.findOne({ "_id": event.applicationId }, function(err, app) {
                 if (err) {
                     return next(err);
                 }
                 else {
                     if (app !== null) {
-                        User.find({ '_id': { $in: app.users } }, "mail -_id", function (err, userMails) {
+                        User.find({ '_id': { $in: app.users } }, "mail -_id", function(err, userMails) {
                             if (err) {
                                 return next(err);
                             }
                             else {
                                 var emails = []
-                                userMails.forEach(function (element) {
+                                userMails.forEach(function(element) {
                                     emails.push(element.mail);
                                 });
 
@@ -38,10 +39,10 @@ exports.create = function (request, response, next) {
                             }
                         });
                     }
-                    else{
+                    else {
                         return response.status(404).send("Wrong id of application");
                     }
-                    
+
                 }
             });
         }
@@ -49,9 +50,9 @@ exports.create = function (request, response, next) {
 };
 
 // Function for quering all events from database
-exports.list = function (request, response, next) {
+exports.list = function(request, response, next) {
     // Get all events from database
-    Event.find({}, function (err, events) {
+    Event.find({}, function(err, events) {
         if (err) {
             return next(err);
         }

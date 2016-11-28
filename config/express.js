@@ -15,6 +15,7 @@ module.exports = function() {
    require('../app/routes/user.route.js')(app);
    require('../app/routes/event.route.js')(app);
    require('../app/routes/application.route.js')(app);
+   require('../app/routes/comment.route.js')(app);
 
    return app;
 };
