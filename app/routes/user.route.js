@@ -8,6 +8,8 @@ module.exports = function(app) {
     app.route('/api/users').post(user.create);
     // POST '/api/users/authenticate' - Authenticate user
     app.route('/api/users/authenticate').post(user.auth);
+    // PUT '/api/users/:id' - update user information
+    app.route('/api/users/:id').put(user.update);
 
     /** Function for filtering requsts...
      *  Only first two functions can be accessed without jwt token.

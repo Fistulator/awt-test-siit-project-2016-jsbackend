@@ -46,3 +46,20 @@ exports.list = function(request, response, next) {
         }
     });
 };
+
+exports.update = function(request, response, next) {
+    Application.findOne({"_id": request.params.id}, function(err, application){
+        if (err) next(err);
+        var newApplication = request.body;
+        application.name = newApplication.name;
+        application.description = newApplication.description;
+        application.latestVersion = newApplication.latestVersion;
+        application.repo = newApplication.repo;
+        application.dsn = newApplication.dsn;
+        application.users = application.users;
+        application.save(function(err, application) {
+            if (err) next(err);
+            response.json(application);
+        });
+  });
+};
