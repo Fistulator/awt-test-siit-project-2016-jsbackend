@@ -1,12 +1,16 @@
 /*
   Requirements:
-    - config for configuration
-    - express for server
-    - mongoose is ORM for database
+    - config    for configuration
+    - express   for server
+    - mongoose  is ODM for MongoDB database
+    - passport  for authentication
 */
 var config   = require('./config/config');
 var mongoose = require('./config/mongoose');
 var express  = require('./config/express');
+var passport = require('./config/passport');
+var errorHandler = require('./config/error-handler');
+var http     = require('http');
 
 var PORT = config.port || 8081;
 
@@ -14,7 +18,13 @@ var PORT = config.port || 8081;
 var db = mongoose();
 var app = express();
 
-app.listen(PORT);
+app.set('secretKey', config.secretKey);
+app.use(passport.initialize());
+
+// Middleware for error handling
+app.use(errorHandler);
+
+http.createServer(app).listen(PORT);
 
 module.exports = app;
 
