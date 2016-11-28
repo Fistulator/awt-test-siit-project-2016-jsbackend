@@ -60,3 +60,17 @@ exports.auth = function(request, response, next) {
 
         })(request, response, next);
 };
+
+exports.update = function(request, response, next) {
+    User.findOne({"_id": request.params.id}, function(err, user){
+        if (err) next(err);
+        var newUser = request.body;
+        user.name = newUser.name;
+        user.surname = newUser.surname;
+        user.password = newUser.password;
+        user.save(function(err, user) {
+            if (err) next(err);
+            response.json(user);
+        });
+    });
+};

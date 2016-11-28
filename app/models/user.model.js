@@ -10,7 +10,12 @@ var UserSchema = new Schema
         required: true,
         unique: true
     },
-    username: String,
+    username:
+    {
+        type: String,
+        required: true,
+        unique: true
+    },
     name:
     {
         type: String,

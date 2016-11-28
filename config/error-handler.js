@@ -1,5 +1,6 @@
 'use strict';
 
+// Middleware for error handling
 var errorHandler = function(err, req, res, next) {
     var message = err.message;
     var error = err.error || err;
