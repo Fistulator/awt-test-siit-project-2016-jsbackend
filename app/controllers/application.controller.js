@@ -19,6 +19,23 @@ exports.getOne = function(request, response, next) {
     });
 };
 
+// Function for querying applications by creator email
+exports.getAllByCreator = function(request, response, next) {
+    // Get application with provided ID in request
+    Application.find(
+      {
+          "creator": request.params.creator
+      },
+      function(err, applications) {
+        if (err) {
+            return next(err);
+        }
+        else {
+            response.json(applications);
+        }
+    });
+};
+
 // Function for application create
 exports.create = function(request, response, next) {
     var application = new Application(request.body);

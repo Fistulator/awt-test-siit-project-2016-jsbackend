@@ -6,4 +6,6 @@ module.exports = function(app) {
     app.route('/api/events').post(event.create);
     // GET    '/api/events' - get all events
     app.route('/api/events').get(event.list);
+    // GET    '/api/events/:applicationId' - get all events by applicaion name
+    app.route('/api/events/:applicationId').get(event.getAllByAppId);
 };

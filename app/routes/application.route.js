@@ -6,6 +6,8 @@ module.exports = function(app) {
     app.route('/api/applications/:id').get(application.getOne);
     // GET    '/api/applications'      Get all Applications
     app.route('/api/applications').get(application.list);
+    // GET    '/api/applications/:creator'  Get All Applications by Creator (username)
+    app.route('/api/applications/users/:creator').get(application.getAllByCreator);
     // POST   '/api/applications'      Create new Application
     app.route('/api/applications').post(application.create);
     // PUT    '/api/applications/:id'  Update Application by ID

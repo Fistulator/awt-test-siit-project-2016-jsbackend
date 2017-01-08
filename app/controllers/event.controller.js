@@ -61,3 +61,16 @@ exports.list = function(request, response, next) {
         }
     });
 };
+
+// Function for quering all events from database
+exports.getAllByAppId = function(request, response, next) {
+    // Get all events from database
+    Event.find({ "applicationId": request.params.applicationId }, function(err, events) {
+        if (err) {
+            return next(err);
+        }
+        else {
+            response.json(events);
+        }
+    });
+};
