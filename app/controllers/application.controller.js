@@ -73,7 +73,7 @@ exports.update = function(request, response, next) {
         application.latestVersion = newApplication.latestVersion;
         application.repo = newApplication.repo;
         application.dsn = newApplication.dsn;
-        application.users = application.users;
+        application.users = newApplication.users;
         application.save(function(err, application) {
             if (err) next(err);
             response.json(application);
