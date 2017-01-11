@@ -91,3 +91,43 @@ exports.getOne = function(request, response, next) {
         }
     }).select('-password');
 };
+
+// Function which checks if email is unique
+exports.checkUniqueMail = function(request, response, next) {
+    User.findOne(
+      {
+          "mail": request.params.mail
+      },
+      function(err, user) {
+        if (err) {
+            return next(err);
+        }
+        else {
+            if (user) {
+                response.json(false);
+            } else {
+                response.json(true);
+            };
+        };
+    }).select('-password');
+};
+
+// Function which checks if username is unique
+exports.checkUniqueUsername = function(request, response, next) {
+    User.findOne(
+      {
+          "username": request.params.username
+      },
+      function(err, user) {
+        if (err) {
+            return next(err);
+        }
+        else {
+            if (user) {
+                response.json(false);
+            } else {
+                response.json(true);
+            };
+        };
+    }).select('-password');
+};
