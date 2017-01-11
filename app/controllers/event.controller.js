@@ -49,6 +49,24 @@ exports.create = function(request, response, next) {
     });
 };
 
+// Function for querying Event by its ID
+exports.getOne = function(request, response, next) {
+    // Get event with provided ID in request
+    Event.findOne(
+      {
+          "_id": request.params.eventId
+      },
+      function(err, event) {
+        if (err) {
+            return next(err);
+        }
+        else {
+            response.json(event);
+        }
+    });
+};
+
+
 // Function for quering all events from database
 exports.list = function(request, response, next) {
     // Get all events from database
