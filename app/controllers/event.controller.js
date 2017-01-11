@@ -53,17 +53,29 @@ exports.create = function(request, response, next) {
 exports.getOne = function(request, response, next) {
     // Get event with provided ID in request
     Event.findOne(
-      {
-          "_id": request.params.eventId
-      },
-      function(err, event) {
-        if (err) {
-            return next(err);
-        }
-        else {
-            response.json(event);
-        }
-    });
+        {
+            "_id": request.params.eventId
+        },
+        function(err, event) {
+            if (err) {
+                return next(err);
+            } else {
+                response.json(event);
+            }
+        }).populate(
+            {
+                path: 'comments',
+                // Get comments of comments - populate the 'comments' array for every comment and signedBy
+                populate: { 
+                    path: 'signedBy comments',
+                    select: '-password',
+                    populate: {
+                        path: 'signedBy',
+                        select: '-password',
+                    }
+                }
+            }
+        );
 };
 
 
