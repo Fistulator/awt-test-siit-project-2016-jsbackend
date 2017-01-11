@@ -19,6 +19,40 @@ exports.getOne = function(request, response, next) {
     });
 };
 
+// Function for querying applications by creator email
+exports.getAllByCreator = function(request, response, next) {
+    // Get application with provided ID in request
+    Application.find(
+      {
+          "creator": request.params.creator
+      },
+      function(err, applications) {
+        if (err) {
+            return next(err);
+        }
+        else {
+            response.json(applications);
+        }
+    });
+};
+
+// Function for querying applications where user is included
+exports.getAllWhereUserIsIncluded = function(request, response, next) {
+    // Get applications which contains user's email in list of users
+    Application.find(
+      {
+          "users": request.params.email
+      },
+      function(err, applications) {
+        if (err) {
+            return next(err);
+        }
+        else {
+            response.json(applications);
+        }
+    });
+};
+
 // Function for application create
 exports.create = function(request, response, next) {
     var application = new Application(request.body);
@@ -56,7 +90,8 @@ exports.update = function(request, response, next) {
         application.latestVersion = newApplication.latestVersion;
         application.repo = newApplication.repo;
         application.dsn = newApplication.dsn;
-        application.users = application.users;
+        application.imagePath = newApplication.imagePath;
+        application.users = newApplication.users;
         application.save(function(err, application) {
             if (err) next(err);
             response.json(application);

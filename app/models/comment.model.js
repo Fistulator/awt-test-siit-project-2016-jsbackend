@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var CommentSchema = new Schema
 ({
-    signedBy: String,
+    signedBy: { type: Schema.Types.ObjectId, ref: 'User'},
     text: {
         type: String,
         required: true
