@@ -31,6 +31,10 @@ var UserSchema = new Schema
         type: String,
         required: true
     },
+    imagePath:
+    {
+        type: String
+    }
 });
 
 UserSchema.pre('save',

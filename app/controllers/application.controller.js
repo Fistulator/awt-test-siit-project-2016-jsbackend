@@ -90,6 +90,7 @@ exports.update = function(request, response, next) {
         application.latestVersion = newApplication.latestVersion;
         application.repo = newApplication.repo;
         application.dsn = newApplication.dsn;
+        application.imagePath = newApplication.imagePath;
         application.users = newApplication.users;
         application.save(function(err, application) {
             if (err) next(err);

@@ -23,6 +23,10 @@ var ApplicationSchema = new Schema
             type: String,
             required: true
         },
+        imagePath:
+        {
+            type: String
+        },
         creator:
         {
             type: String,
