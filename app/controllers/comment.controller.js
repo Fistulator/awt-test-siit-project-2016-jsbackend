@@ -7,7 +7,9 @@ var Comment = require('mongoose').model('Comment');
 exports.getOne = function (request, response, next) {
     Comment.findOne({
         "_id": request.params.id
-    }).populate("comments").exec(function (err, comment) {
+    })
+    .populate("signedBy", "-password")
+    .populate("comments").exec(function (err, comment) {
         if (err) return next(err);
         if (comment == null) return response.status(404).send("Wrong id of comment");
         response.json(comment);

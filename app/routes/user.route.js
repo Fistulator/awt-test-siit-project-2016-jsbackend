@@ -10,6 +10,12 @@ module.exports = function(app) {
     app.route('/api/users/authenticate').post(user.auth);
     // PUT '/api/users/:id' - update user information
     app.route('/api/users/:id').put(user.update);
+    // GET '/api/users/:mail' - get user information without password
+    app.route('/api/users/:mail').get(user.getOne);
+    // GET '/api/users/unique/email/:mail' - check if mail is unique
+    app.route('/api/users/unique/email/:mail').get(user.checkUniqueMail)
+    // GET '/api/users/unique/email/:username' - check if username is unique
+    app.route('/api/users/unique/username/:username').get(user.checkUniqueUsername)
 
     /** Function for filtering requsts...
      *  Only first two functions can be accessed without jwt token.
