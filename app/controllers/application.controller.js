@@ -36,6 +36,23 @@ exports.getAllByCreator = function(request, response, next) {
     });
 };
 
+// Function for querying applications where user is included
+exports.getAllWhereUserIsIncluded = function(request, response, next) {
+    // Get applications which contains user's email in list of users
+    Application.find(
+      {
+          "users": request.params.email
+      },
+      function(err, applications) {
+        if (err) {
+            return next(err);
+        }
+        else {
+            response.json(applications);
+        }
+    });
+};
+
 // Function for application create
 exports.create = function(request, response, next) {
     var application = new Application(request.body);
