@@ -75,3 +75,19 @@ exports.update = function(request, response, next) {
         });
     });
 };
+
+// Function for querying Users by email
+exports.getOne = function(request, response, next) {
+    User.findOne(
+      {
+          "mail": request.params.mail
+      },
+      function(err, user) {
+        if (err) {
+            return next(err);
+        }
+        else {
+            response.json(user);
+        }
+    }).select('-password');
+};
