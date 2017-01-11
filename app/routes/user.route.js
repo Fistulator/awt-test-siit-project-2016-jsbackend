@@ -14,7 +14,7 @@ module.exports = function(app) {
     app.route('/api/users/:mail').get(user.getOne);
     // GET '/api/users/unique/email/:mail' - check if mail is unique
     app.route('/api/users/unique/email/:mail').get(user.checkUniqueMail)
-     // GET '/api/users/unique/email/:username' - check if username is unique
+    // GET '/api/users/unique/email/:username' - check if username is unique
     app.route('/api/users/unique/username/:username').get(user.checkUniqueUsername)
 
     /** Function for filtering requsts...

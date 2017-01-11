@@ -109,7 +109,7 @@ exports.checkUniqueMail = function(request, response, next) {
                 response.json(true);
             };
         };
-    }).select('-password');
+    });
 };
 
 // Function which checks if username is unique
@@ -129,5 +129,5 @@ exports.checkUniqueUsername = function(request, response, next) {
                 response.json(true);
             };
         };
-    }).select('-password');
+    });
 };
