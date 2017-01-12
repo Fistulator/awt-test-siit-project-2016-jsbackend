@@ -98,3 +98,83 @@ exports.update = function(request, response, next) {
         });
   });
 };
+
+// Function which checks if dsn is unique
+exports.checkUniqueDsn = function(request, response, next) {
+    Application.findOne(
+      {
+          "dsn": request.params.dsn
+      },
+      function(err, app) {
+        if (err) {
+            return next(err);
+        }
+        else {
+            if (app) {
+                response.json(false);
+            } else {
+                response.json(true);
+            };
+        };
+    });
+};
+
+// Function which checks if dsn is unique
+exports.checkUniqueDsn = function(request, response, next) {
+    Application.findOne(
+      {
+          "dsn": request.params.dsn
+      },
+      function(err, app) {
+        if (err) {
+            return next(err);
+        }
+        else {
+            if (app) {
+                response.json(false);
+            } else {
+                response.json(true);
+            };
+        };
+    });
+};
+
+// Function which checks if name is unique
+exports.checkUniqueName = function(request, response, next) {
+    Application.findOne(
+      {
+          "name": request.params.name
+      },
+      function(err, app) {
+        if (err) {
+            return next(err);
+        }
+        else {
+            if (app) {
+                response.json(false);
+            } else {
+                response.json(true);
+            };
+        };
+    });
+};
+
+// Function which checks if name is unique
+exports.checkUniqueUser = function(request, response, next) {
+    Application.findOne(
+      {
+          "users": { $in : [request.params.email]  }
+      },
+      function(err, app) {
+        if (err) {
+            return next(err);
+        }
+        else {
+            if (app) {
+                response.json(false);
+            } else {
+                response.json(true);
+            };
+        };
+    });
+};
