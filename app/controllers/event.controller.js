@@ -23,6 +23,21 @@ exports.create = function(request, response, next) {
                 }
                 else {
                     if (app !== null) {
+                        // If version of event is different than latest version of application
+                        if (event.versionNumber !== app.latestVersion) {
+                            // Update application in database
+                            Application.findOne({"_id": app._id}, function(err, application) {
+                                if (err) next(err);
+
+                                // Set application latest version
+                                application.latestVersion = event.versionNumber;
+
+                                application.save(function(err, app) {
+                                    if (err) next(err);
+                                });
+                            });
+                        }
+
                         User.find({ '_id': { $in: app.users } }, "mail -_id", function(err, userMails) {
                             if (err) {
                                 return next(err);
@@ -66,7 +81,7 @@ exports.getOne = function(request, response, next) {
             {
                 path: 'comments',
                 // Get comments of comments - populate the 'comments' array for every comment and signedBy
-                populate: { 
+                populate: {
                     path: 'signedBy comments',
                     select: '-password',
                     populate: {
@@ -108,7 +123,7 @@ exports.getAllByAppId = function(request, response, next) {
 // Function for quering all events by specified Application fragment
 exports.getEventsByAppFragment = function(request, response, next) {
     Event.find(
-        { 
+        {
             "applicationId": request.params.applicationId,
             "fragment": request.params.fragment
         }, function(err, events) {
