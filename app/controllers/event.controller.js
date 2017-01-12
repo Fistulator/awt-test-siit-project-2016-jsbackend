@@ -104,3 +104,19 @@ exports.getAllByAppId = function(request, response, next) {
         }
     });
 };
+
+// Function for quering all events by specified Application fragment
+exports.getEventsByAppFragment = function(request, response, next) {
+    Event.find(
+        { 
+            "applicationId": request.params.applicationId,
+            "fragment": request.params.fragment
+        }, function(err, events) {
+            if (err) {
+                return next(err);
+            }
+            else {
+                response.json(events);
+            }
+    });
+};
