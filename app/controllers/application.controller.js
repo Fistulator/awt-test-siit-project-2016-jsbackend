@@ -158,3 +158,23 @@ exports.checkUniqueName = function(request, response, next) {
         };
     });
 };
+
+// Function which checks if name is unique
+exports.checkUniqueUser = function(request, response, next) {
+    Application.findOne(
+      {
+          "users": { $in : [request.params.email]  }
+      },
+      function(err, app) {
+        if (err) {
+            return next(err);
+        }
+        else {
+            if (app) {
+                response.json(false);
+            } else {
+                response.json(true);
+            };
+        };
+    });
+};
