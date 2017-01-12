@@ -163,6 +163,7 @@ exports.checkUniqueName = function(request, response, next) {
 exports.checkUniqueUser = function(request, response, next) {
     Application.findOne(
       {
+          "_id": request.params.appId,
           "users": { $in : [request.params.email]  }
       },
       function(err, app) {
