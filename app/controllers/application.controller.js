@@ -1,6 +1,7 @@
 // Require Application's model defined in 'app/models'
 var config = require('./../../config/config');
 var Application = require('mongoose').model('Application');
+var User = require('mongoose').model('User');
 
 // Function for querying applications by ID
 exports.getOne = function(request, response, next) {
@@ -38,19 +39,30 @@ exports.getAllByCreator = function(request, response, next) {
 
 // Function for querying applications where user is included
 exports.getAllWhereUserIsIncluded = function(request, response, next) {
-    // Get applications which contains user's email in list of users
-    Application.find(
+    User.findOne(
       {
-          "users": request.params.email
+          "mail": request.params.email
       },
-      function(err, applications) {
+      function (err, user) {
         if (err) {
             return next(err);
         }
         else {
-            response.json(applications);
+          // Get applications which contains user's email in list of users
+          Application.find(
+            {
+                "users": user._id
+            },
+            function(err, applications) {
+              if (err) {
+                  return next(err);
+              }
+              else {
+                  response.json(applications);
+              }
+          });
         }
-    });
+      });
 };
 
 // Function for application create
