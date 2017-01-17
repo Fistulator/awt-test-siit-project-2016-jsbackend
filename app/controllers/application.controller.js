@@ -1,6 +1,7 @@
 // Require Application's model defined in 'app/models'
 var config = require('./../../config/config');
 var Application = require('mongoose').model('Application');
+var User = require('mongoose').model('User');
 
 // Function for querying applications by ID
 exports.getOne = function(request, response, next) {
@@ -38,19 +39,30 @@ exports.getAllByCreator = function(request, response, next) {
 
 // Function for querying applications where user is included
 exports.getAllWhereUserIsIncluded = function(request, response, next) {
-    // Get applications which contains user's email in list of users
-    Application.find(
+    User.findOne(
       {
-          "users": request.params.email
+          "mail": request.params.email
       },
-      function(err, applications) {
+      function (err, user) {
         if (err) {
             return next(err);
         }
         else {
-            response.json(applications);
+          // Get applications which contains user's email in list of users
+          Application.find(
+            {
+                "users": user._id
+            },
+            function(err, applications) {
+              if (err) {
+                  return next(err);
+              }
+              else {
+                  response.json(applications);
+              }
+          });
         }
-    });
+      });
 };
 
 // Function for application create
@@ -97,4 +109,85 @@ exports.update = function(request, response, next) {
             response.json(application);
         });
   });
+};
+
+// Function which checks if dsn is unique
+exports.checkUniqueDsn = function(request, response, next) {
+    Application.findOne(
+      {
+          "dsn": request.params.dsn
+      },
+      function(err, app) {
+        if (err) {
+            return next(err);
+        }
+        else {
+            if (app) {
+                response.json(false);
+            } else {
+                response.json(true);
+            };
+        };
+    });
+};
+
+// Function which checks if dsn is unique
+exports.checkUniqueDsn = function(request, response, next) {
+    Application.findOne(
+      {
+          "dsn": request.params.dsn
+      },
+      function(err, app) {
+        if (err) {
+            return next(err);
+        }
+        else {
+            if (app) {
+                response.json(false);
+            } else {
+                response.json(true);
+            };
+        };
+    });
+};
+
+// Function which checks if name is unique
+exports.checkUniqueName = function(request, response, next) {
+    Application.findOne(
+      {
+          "name": request.params.name
+      },
+      function(err, app) {
+        if (err) {
+            return next(err);
+        }
+        else {
+            if (app) {
+                response.json(false);
+            } else {
+                response.json(true);
+            };
+        };
+    });
+};
+
+// Function which checks if name is unique
+exports.checkUniqueUser = function(request, response, next) {
+    Application.findOne(
+      {
+          "_id": request.params.appId,
+          "users": { $in : [request.params.email]  }
+      },
+      function(err, app) {
+        if (err) {
+            return next(err);
+        }
+        else {
+            if (app) {
+                response.json(false);
+            } else {
+                response.json(true);
+            };
+        };
+    });
 };

@@ -21,7 +21,8 @@ var ApplicationSchema = new Schema
         dsn:
         {
             type: String,
-            required: true
+            required: true,
+            unique: true
         },
         imagePath:
         {

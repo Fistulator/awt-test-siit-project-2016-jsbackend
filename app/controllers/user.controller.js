@@ -92,6 +92,22 @@ exports.getOne = function(request, response, next) {
     }).select('-password');
 };
 
+// Function for querying Users by id
+exports.getOneById = function(request, response, next) {
+    User.findOne(
+      {
+          "_id": request.params.id
+      },
+      function(err, user) {
+        if (err) {
+            return next(err);
+        }
+        else {
+            response.json(user);
+        }
+    }).select('-password');
+};
+
 // Function which checks if email is unique
 exports.checkUniqueMail = function(request, response, next) {
     User.findOne(
