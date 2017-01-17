@@ -23,8 +23,8 @@ exports.create = function(request, response, next) {
                 }
                 else {
                     if (app !== null) {
-                        // If version of event is different than latest version of application
-                        if (event.versionNumber !== app.latestVersion) {
+                        // If version of event is newer than latest version of application
+                        if (isNewer(event.versionNumber, app.latestVersion)) {
                             // Update application in database
                             Application.findOne({"_id": app._id}, function(err, application) {
                                 if (err) next(err);
@@ -135,3 +135,34 @@ exports.getEventsByAppFragment = function(request, response, next) {
             }
     });
 };
+
+/**
+ * Private function for checking which version is newer
+ * Application version is in format major.minor.patch
+ *
+ * @param {String}  oldVersion
+ * @param {String}  newVersion
+ * @return is new version 'newer' than old one.
+ */
+function isNewer(newVersion, oldVersion) {
+    // Old version splitted
+    var ov = oldVersion.split('.');
+    // New version splitted
+    var nv = newVersion.split('.');
+
+    if (parseInt(nv[0]) > parseInt(ov[0])) {
+        return true;
+    }
+    else if (parseInt(nv[0]) == parseInt(ov[0])) {
+        if (parseInt(nv[1]) > parseInt(ov[1])) {
+            return true;
+        }
+        else if (parseInt(nv[1]) == parseInt(ov[1])) {
+            if (parseInt(nv[2]) > parseInt(ov[2])) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
