@@ -15,11 +15,11 @@ module.exports = function(app) {
     // PUT    '/api/applications/:id'  Update Application by ID
     app.route('/api/applications/:id').put(application.update);
     // GET    '/api/applications/unique/dsn/:dsn' - check if dsn is unique
-    app.route('/api/applications/unique/dsn/:dsn').get(application.checkUniqueDsn);
+    app.route('/api/applications/unique/dsn/').post(application.checkUniqueDsn);
     // GET    '/api/applications/unique/name/:name' - check if name is unique
     app.route('/api/applications/unique/name/:name').get(application.checkUniqueName);
     // GET    '/api/applications/:appId/unique/user/:email' - check if user is unique
-    app.route('/api/applications/:appId/unique/user/:email').get(application.checkUniqueUser);
+    app.route('/api/applications/:appId/unique/user/:id').get(application.checkUniqueUser);
     // DELETE '/api/applications/:id'  Delete Application by ID
     // app.route('/api/applications/:id').delete(application.remove);
 };

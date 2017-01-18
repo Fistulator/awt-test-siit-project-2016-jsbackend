@@ -135,7 +135,7 @@ exports.checkUniqueDsn = function(request, response, next) {
 exports.checkUniqueDsn = function(request, response, next) {
     Application.findOne(
       {
-          "dsn": request.params.dsn
+          "dsn": request.body.dsn
       },
       function(err, app) {
         if (err) {
@@ -176,7 +176,7 @@ exports.checkUniqueUser = function(request, response, next) {
     Application.findOne(
       {
           "_id": request.params.appId,
-          "users": { $in : [request.params.email]  }
+          "users": { $in : [request.params.id]  }
       },
       function(err, app) {
         if (err) {
