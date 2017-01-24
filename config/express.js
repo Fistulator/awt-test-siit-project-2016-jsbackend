@@ -1,6 +1,7 @@
 var config = require('./config');
 var express = require('express');
 var bodyParser = require('body-parser');
+var cors = require('cors');
 
 module.exports = function() {
    var app = express();
@@ -9,6 +10,8 @@ module.exports = function() {
        extended: true
    }));
    app.use(bodyParser.json());
+
+   app.use(cors({origin: 'http://localhost:8080'}));
 
    // Include all routes so we can use defined REST paths
    // Order of routes import is important
