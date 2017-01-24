@@ -20,6 +20,4 @@ module.exports = function(app) {
     app.route('/api/applications/unique/name/:name').get(application.checkUniqueName);
     // GET    '/api/applications/:appId/unique/user/:email' - check if user is unique
     app.route('/api/applications/:appId/unique/user/:id').get(application.checkUniqueUser);
-    // DELETE '/api/applications/:id'  Delete Application by ID
-    // app.route('/api/applications/:id').delete(application.remove);
 };
